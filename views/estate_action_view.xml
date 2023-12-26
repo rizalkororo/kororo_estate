@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+
+  <record id="kororo_estate_property" model="ir.actions.act_window">
+    <field name="name">List all properties</field>
+    <field name="res_model">estate.property</field>
+  </record>
+
+  <record id="kororo_actions_estate_view_id" model="ir.actions.act_window.view">
+    <field name="sequence" eval="1"/>
+    <field name="view_mode">tree</field>
+    <field name="view_id" ref="estate.kororo_estate_property_tree_view"/>
+    <field name="act_window_id" ref="estate.kororo_estate_property"/>
+  </record>
+
+  <record id="kororo_actions_estate_kanban_id" model="ir.actions.act_window.view">
+    <field name="sequence" eval="2"/>
+    <field name="view_mode">kanban</field>
+    <field name="view_id" ref="estate.kororo_estate_kanban_view"/>
+    <field name="act_window_id" ref="estate.kororo_estate_property"/>
+  </record>
+
+  <record id="kororo_actions_estate_form_id" model="ir.actions.act_window.view">
+    <field name="sequence" eval="3"/>
+    <field name="view_mode">form</field>
+    <field name="view_id" ref="estate.kororo_estate_form_view"/>
+    <field name="act_window_id" ref="estate.kororo_estate_property"/>
+  </record>
+
+</odoo>

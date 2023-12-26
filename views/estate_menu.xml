@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+
+  <menuitem id="test_menu_root" name="ESTATE">
+    <menuitem id="test_first_level_menu" name="Estate Properties">
+        <menuitem id="test_model_menu_action" action="estate.kororo_estate_property"/>
+    </menuitem>
+  </menuitem>
+
+</odoo>
