@@ -7,14 +7,27 @@
     <field name="model">estate.property</field>
     <field name="arch" type="xml">
       <form string="Property Input">
+        <header>
+          <button name="sell_property" type="object" string="SOLD" class="btn btn-outline-primary btn-sm"/>
+          <button name="cancel_selling" type="object" string="CANCELED" class="btn btn-outline-primary btn-sm"/>
+          <field name="status" widget="statusbar"/>
+        </header>
         <sheet>
-          <group>
-              <group>
-                  <field name="name" class="oe_title"/>
+        
+          <div class="oe_title">
+              <h1><field name="name" placeholder="Eg: Lenteng Agung"/></h1>
+          </div>
+          <group> 
+              <group class="group-lines">
+                  <field name="status"/>
+                  <field name="property_type_id" decoration-danger="10000"/>
+                  <field name="tag_ids" widget="many2many_tags" options="{'color_field': 'color'}"/>
+                  <field name="postcode"/>
                   <field name="date_availability"/>
               </group>
-              <group>
+              <group class="group-lines">
                 <field name="expected_price"/>
+                <field name="best_offer"/>
                 <field name="selling_price"/>
               </group>
               
@@ -22,15 +35,29 @@
           <notebook>
             <page string="Description">
               <group>
-                <field name="description"/>
-                <field name="active"/>
-                <field name="bedrooms"/>
-                <field name="living_area"/>
-                <field name="facades"/>
-                <field name="garage"/>
-                <field name="garden"/>
-                <field name="garden_area"/>
-                <field name="garden_orientation"/>
+                <group class="group-lines">
+                  <field name="description" class="desc"/>
+                  <field name="active"/>
+                  <field name="bedrooms"/>
+                  <field name="living_area"/>
+                  <field name="facades"/>
+                  <field name="garage"/>
+                  <field name="garden"/>
+                  <field name="garden_area"  invisible="not garden"/>
+                  <field name="garden_orientation" invisible="not garden"/>
+                  <field name="total_area"/>
+                </group>
+              </group>
+            </page>
+            <page string="Offer">
+              <field name="offer_ids" readonly="status == 'canceled' or status == 'accepted' or status == 'sold'"/>
+            </page>
+            <page string="Other Info">
+              <group>
+                <group class="group-lines">
+                <field name="sales_person"/>
+                <field name="buyer"/>
+              </group>
               </group>
             </page>
           </notebook>

@@ -9,8 +9,9 @@
         <field name="name"/>
         <field name="expected_price"/>
         <field name="bedrooms"/>
+          <field name="living_area" string="Living Area" filter_domain="['|', ('living_area', '=', self),('living_area','>', self)]"/>
         <separator/>
-        <filter string="Active" name="active" domain="[('active', '=', True)]"/>
+        <filter name="active" string="Available" domain="[('active','=',True)]" help="Show available estate"/>
       </search>
     </field>
   </record>

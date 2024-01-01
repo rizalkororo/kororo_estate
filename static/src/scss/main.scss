@@ -1,0 +1,55 @@
+
+$colorGray: #898687;
+$colorWhite: #FFFFFF;
+$colorGreen: #04683eb7;
+$colorBlack: #000000;
+
+.oe_title {
+  h1 {
+    color: $colorGray;
+  }
+}
+
+.o_wrap_input {
+  input {
+    border-bottom: 1px solid $colorGray;
+  }
+  select {
+    border-bottom: 1px solid $colorGray;
+  }
+}
+
+.group-lines {
+  input {
+    border-bottom: 1px solid $colorGray;
+  }
+
+  .desc {
+    font-weight: 400px;
+  }
+}
+
+.o_notebook_headers {
+  .nav-tabs li {
+    a.active {
+      background: $colorWhite;
+      color: $colorBlack;
+    }
+
+    a {
+      background: $colorGreen;
+      color: $colorWhite;
+    }
+  }
+}
+
+table {
+  thead {
+    // tr {
+    //   background: $colorGreen;
+    // }
+    span {
+      font-weight: bold;
+    }
+  }
+}

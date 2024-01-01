@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+    <template id="estate_backend_template_id" name="kororo estate" inherit_id="web.assets_backend">
+      <xpath expr="." position="inside">
+        <link rel="stylesheet" href="/estate/static/src/scss/main.scss"/>
+      </xpath>
+    </template>
+</odoo>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+  <menuitem id="estate_menu_root" name="ESTATE">
+
+    <menuitem id="estate_first_level_menu" name="Advertisements">
+        <menuitem id="estate_estate_action" action="estate.kororo_estate_property"/>
+    </menuitem>
+
+    <menuitem id="estate_second_level_menu" name="Settings">
+       <menuitem id="estate_property_action" action="estate.property_action_id"/>
+       <menuitem id="estate_tags_action" action="estate.property_action_tags_id"/>
+    </menuitem>
+    
+  </menuitem>
+
+</odoo>
