@@ -60,7 +60,7 @@ class EstatePoperty(models.Model):
         "estate.property.type", string="Property Type", ondelete="cascade", index=True)
     sales_person = fields.Many2one(
         "res.users", string="Salesman", default=lambda self: self.env.user)
-    buyer = fields.Many2one("res.users", string="Buyer")
+    buyer = fields.Many2one("res.partner", string="Buyer")
     tag_ids = fields.Many2many("estate.tags", string="Tags")
     offer_ids = fields.One2many(
         "estate.property.offer", "property_id", string="Offer")
@@ -95,6 +95,10 @@ class EstatePoperty(models.Model):
             raise exceptions.UserError("Canceled property cannot be sold")
         self.status = 'sold'
 
+    @api.model
+    def create(self, vals):
+        return super(EstatePoperty, self).create(vals)
+
     def cancel_selling(self):
         self.status = 'canceled'
 
@@ -105,12 +109,14 @@ class EstatePoperty(models.Model):
                 raise exceptions.ValidationError(
                     "Selling price is less than or similar Best Offer. Please make sure to set your Buyer offer price greater than your Best Offer.")
 
+    @api.ondelete(at_uninstall=False)
+    def _unlink_if_status_not_new_or_not_canceled(self):
+        if self.status == 'received' or self.status == 'accepted' or self.status == 'sold':
+            raise exceptions.UserError(
+                "Only New and Canceled record can be deleted.")
+
     def unlink(self):
-        for item in self:
-            if item.status == 'new' or item.status == 'canceled':
-                return super(EstatePoperty, item).unlink()
-        raise exceptions.UserError(
-            "Only New and Canceled record can be deleted.")
+        return super(EstatePoperty, self).unlink()
 
 
 class EstatePropertyType(models.Model):
@@ -175,6 +181,15 @@ class EstatePropertyOffer(models.Model):
 
     @api.model
     def create(self, val):
+        # if current offer price is less than offer price in database record
+        # then raise errror
+        all_prices = self.env['estate.property.offer'].search(
+            [('property_id', '=', val['property_id'])])
+        for item in all_prices:
+            if float(val['price']) < float(item.price):
+                raise exceptions.UserError(
+                    f"Offer price must be set higher than {item.price}")
+
         self.env['estate.property'].browse(
             val['property_id']).status = 'received'
         return super(EstatePropertyOffer, self).create(val)
